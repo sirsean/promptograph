@@ -1,0 +1,23 @@
+{
+  "name": "promptograph-backend",
+  "version": "1.0.0",
+  "description": "Promptograph backend API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node_modules/jest/bin/jest.js",
+    "test:watch": "jest --watch",
+    "build": "npm install"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
