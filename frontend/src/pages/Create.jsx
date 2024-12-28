@@ -76,7 +76,7 @@ const Create = () => {
               if (!response.ok) throw new Error('Failed to generate image');
               
               const { id } = await response.json();
-              setGeneratedImage(`/image/${id}.png`);
+              setGeneratedImage(`/api/image/${id}.png`);
             } catch (err) {
               setError(err.message);
             } finally {

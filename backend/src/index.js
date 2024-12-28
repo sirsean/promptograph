@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { TextCloudflareAI, ImageCloudflareAI } from "./ai/cloudflare.js";
-import { uploadImage } from "./data/r2.js";
+import { uploadImage, getObject } from "./data/r2.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -53,10 +53,10 @@ app.post('/api/generate-image', async (req, res) => {
   }
 });
 
-app.get('/image/:id.png', async (req, res) => {
+app.get('/api/image/:id.png', async (req, res) => {
   try {
     const { id } = req.params;
-    const imageObject = await getObject(`headlines/${id}/image.png`);
+    const imageObject = await getObject(`prompts/${id}/image.png`);
     res.setHeader('Content-Type', 'image/png');
     imageObject.Body.pipe(res);
   } catch (error) {

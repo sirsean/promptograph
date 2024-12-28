@@ -25,7 +25,7 @@ export async function uploadImage(id, image) {
     client: r2,
     params: {
       Bucket: BUCKET,
-      Key: `headlines/${id}/image.png`,
+      Key: `prompts/${id}/image.png`,
       Body: image,
     },
   });
