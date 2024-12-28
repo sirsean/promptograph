@@ -8,8 +8,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center">
-            <img src="/android-chrome-192x192.png" alt="Promptograph" className="h-8 w-8" />
-            <span className="font-bold text-xl ml-2">Promptograph</span>
+            <img src="/android-chrome-192x192.png" alt="Promptograph" className="h-12 w-12 rounded-sm" />
           </Link>
         </div>
       </div>
