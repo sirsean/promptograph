@@ -6,7 +6,7 @@ const Create = () => {
   const [generatedPrompt, setGeneratedPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [generatedImage, setGeneratedImage] = useState(null);
+  const [imageHistory, setImageHistory] = useState([]);
 
   const handleGeneratePrompt = async (e) => {
     e.preventDefault();
@@ -35,11 +35,37 @@ const Create = () => {
     }
   };
 
+  const handleGenerateImage = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/generate-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: e.target.model.value,
+          prompt: generatedPrompt
+        }),
+      });
+      
+      if (!response.ok) throw new Error('Failed to generate image');
+      
+      const { id } = await response.json();
+      const newImage = { id, prompt: generatedPrompt, timestamp: new Date().toISOString() };
+      setImageHistory(prev => [newImage, ...prev]);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Create New Image</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-4">
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <form onSubmit={handleGeneratePrompt}>
             <textarea 
               className="w-full h-32 p-4 border rounded-lg mb-4"
@@ -57,32 +83,8 @@ const Create = () => {
               {isLoading ? 'Generating...' : 'Generate Prompt'}
             </button>
           </form>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
           
-          <form onSubmit={async (e) => {
-            e.preventDefault();
-            setIsLoading(true);
-            setError(null);
-            try {
-              const response = await fetch('/api/generate-image', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  model: e.target.model.value,
-                  prompt: generatedPrompt
-                }),
-              });
-              
-              if (!response.ok) throw new Error('Failed to generate image');
-              
-              const { id } = await response.json();
-              setGeneratedImage(`/api/image/${id}.png`);
-            } catch (err) {
-              setError(err.message);
-            } finally {
-              setIsLoading(false);
-            }
-          }}>
+          <form onSubmit={handleGenerateImage}>
             <textarea 
               className="w-full h-32 p-4 border rounded-lg mb-4"
               value={generatedPrompt}
@@ -108,14 +110,32 @@ const Create = () => {
             </button>
           </form>
         </div>
-        <div className="border rounded-lg p-4 flex items-center justify-center min-h-[400px]">
-          {isLoading ? (
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
+        {isLoading && (
+          <div className="flex justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
-          ) : generatedImage ? (
-            <img src={generatedImage} alt="Generated" className="max-w-full max-h-[400px]" />
-          ) : (
-            <p className="text-gray-500">Generated image will appear here</p>
-          )}
+          </div>
+        )}
+
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold">Generated Images</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {imageHistory.map((image) => (
+              <div key={image.id} className="border rounded-lg p-4">
+                <img 
+                  src={`/api/image/${image.id}.png`} 
+                  alt={image.prompt} 
+                  className="w-full h-48 object-cover rounded-lg mb-2"
+                />
+                <p className="text-sm text-gray-600 line-clamp-2">{image.prompt}</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  {new Date(image.timestamp).toLocaleString()}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
