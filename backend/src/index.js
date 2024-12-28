@@ -41,10 +41,17 @@ app.post('/api/generate-image', async (req, res) => {
     }
 
     const ai = new ImageCloudflareAI(model);
-    const image = await ai.generate(prompt);
+    let imageData = await ai.generate(prompt);
+
+    // Handle Flux model's JSON response
+    if (model === 'black-forest-labs/flux-1-schnell') {
+      const response = await imageData.json();
+      const base64Data = response.image.replace(/^data:image\/\w+;base64,/, '');
+      imageData = Buffer.from(base64Data, 'base64');
+    }
 
     const id = crypto.randomUUID();
-    await uploadImage(id, image);
+    await uploadImage(id, imageData);
     
     res.json({ id });
   } catch (error) {
