@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "AI-powered image generation from prompts",
   "scripts": {
-    "backend": "cd backend && node index.js",
+    "backend": "cd backend && npm run start",
     "frontend": "cd frontend && npm run dev",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",

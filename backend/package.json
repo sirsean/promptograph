@@ -4,7 +4,7 @@
   "description": "Promptograph backend API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/index.js",
     "test": "node_modules/jest/bin/jest.js",
     "test:watch": "jest --watch",
     "build": "npm install"
