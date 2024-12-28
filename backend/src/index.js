@@ -1,7 +1,12 @@
 import express from "express";
 import cors from "cors";
+import path, { dirname } from "path";
+import { fileURLToPath } from 'url';
 import { TextCloudflareAI, ImageCloudflareAI } from "./ai/cloudflare.js";
 import { uploadImage, getObject } from "./data/r2.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -74,6 +79,18 @@ app.get('/api/image/:id.png', async (req, res) => {
     res.status(404).json({ error: 'Image not found' });
   }
 });
+
+// set up the UI server
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+if (process.env.NODE_ENV === "production") {
+  // serve static files from vite-app
+  app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
+
+  // handle all other routes within vite-app
+  app.get('*', asyncHandler(async (req, res) => {
+    res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
+  }));
+}
 
 app.listen(port, () => {
   console.log(`Backend running on port ${port}`);
