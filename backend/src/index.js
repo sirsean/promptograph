@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { TextCloudflareAI, ImageCloudflareAI } from "./ai/cloudflare.js";
+import { uploadImage } from "./data/r2.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -40,10 +41,12 @@ app.post('/api/generate-image', async (req, res) => {
     }
 
     const ai = new ImageCloudflareAI(model);
-    const imageStream = await ai.generate(prompt);
+    const image = await ai.generate(prompt);
+
+    const id = 'demo';
+    await uploadImage(id, image);
     
-    res.setHeader('Content-Type', 'image/jpeg');
-    imageStream.pipe(res);
+    res.json({ id });
   } catch (error) {
     console.error('Error generating image:', error);
     res.status(500).json({ error: 'Failed to generate image' });

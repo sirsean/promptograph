@@ -59,18 +59,12 @@ const Create = () => {
           </form>
           {error && <p className="text-red-500 text-sm">{error}</p>}
           
-          <textarea 
-            className="w-full h-32 p-4 border rounded-lg"
-            placeholder="Generated prompt will appear here..."
-            value={generatedPrompt}
-            readOnly
-          />
           <form onSubmit={async (e) => {
             e.preventDefault();
             setIsLoading(true);
             setError(null);
             try {
-              const response = await fetch('http://0.0.0.0:3000/api/generate-image', {
+              const response = await fetch('/api/generate-image', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
