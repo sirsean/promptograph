@@ -22,7 +22,7 @@ app.post('/api/generate-prompt', async (req, res) => {
     }
 
     const prompt = await ai.generate({
-      system: ['You are an expert at writing detailed image generation prompts. Convert the user message into a detailed prompt that will generate a high-quality image. You will only respond with the prompt, and will not include any other text.'],
+      system: ['You are an expert at writing detailed image generation prompts. Convert the user message into a detailed prompt that will generate a high-quality image. You will only respond with the prompt, and will not include any other text. The prompt should not be wrapped in quotation marks, just the raw prompt text.'],
       user: [message]
     });
 
@@ -39,6 +39,8 @@ app.post('/api/generate-image', async (req, res) => {
     if (!prompt || !model) {
       return res.status(400).json({ error: 'Prompt and model are required' });
     }
+
+    console.log(model, prompt);
 
     const ai = new ImageCloudflareAI(model);
     let imageData = await ai.generate(prompt);

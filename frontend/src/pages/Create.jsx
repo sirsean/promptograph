@@ -68,7 +68,7 @@ const Create = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <form onSubmit={handleGeneratePrompt}>
             <textarea 
-              className="w-full h-32 p-4 border rounded-lg mb-4"
+              className="w-full h-64 p-4 border rounded-lg mb-4"
               placeholder="Describe what you want to create..."
               value={userMessage}
               onChange={(e) => setUserMessage(e.target.value)}
@@ -120,7 +120,6 @@ const Create = () => {
         )}
 
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold">Generated Images</h2>
           <div className="space-y-4">
             {imageHistory.map((image, index) => (
               <div key={image.id} className={`border rounded-lg p-4 ${index === 0 ? 'col-span-full' : ''}`}>
