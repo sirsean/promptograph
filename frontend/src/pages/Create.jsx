@@ -4,13 +4,14 @@ import { useState } from 'react';
 const Create = () => {
   const [userMessage, setUserMessage] = useState('');
   const [generatedPrompt, setGeneratedPrompt] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPromptLoading, setIsPromptLoading] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const [error, setError] = useState(null);
   const [imageHistory, setImageHistory] = useState([]);
 
   const handleGeneratePrompt = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsPromptLoading(true);
     setError(null);
 
     try {
@@ -31,13 +32,13 @@ const Create = () => {
     } catch (err) {
       setError(err.message);
     } finally {
-      setIsLoading(false);
+      setIsPromptLoading(false);
     }
   };
 
   const handleGenerateImage = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsImageLoading(true);
     setError(null);
     try {
       const response = await fetch('/api/generate-image', {
@@ -57,7 +58,7 @@ const Create = () => {
     } catch (err) {
       setError(err.message);
     } finally {
-      setIsLoading(false);
+      setIsImageLoading(false);
     }
   };
 
@@ -75,11 +76,11 @@ const Create = () => {
             />
             <button 
               type="submit"
-              disabled={isLoading}
+              disabled={isPromptLoading}
               className={`w-full px-4 py-2 rounded-lg text-cyberpunk button-cyberpunk
-                ${isLoading ? 'opacity-50' : ''}`}
+                ${isPromptLoading ? 'opacity-50' : ''}`}
             >
-              {isLoading ? 'Generating...' : 'Generate Prompt'}
+              {isPromptLoading ? 'Generating...' : 'Generate Prompt'}
             </button>
           </form>
           
@@ -101,18 +102,18 @@ const Create = () => {
             </select>
             <button 
               type="submit"
-              disabled={isLoading}
+              disabled={isImageLoading}
               className={`w-full px-4 py-2 rounded-lg text-cyberpunk 
-                ${isLoading ? 'button-cyberpunk-300 opacity-50' : 'button-cyberpunk-500 hover:button-cyberpunk-600'}`}
+                ${isImageLoading ? 'button-cyberpunk-300 opacity-50' : 'button-cyberpunk-500 hover:button-cyberpunk-600'}`}
             >
-              {isLoading ? 'Generating Image...' : 'Generate Image'}
+              {isImageLoading ? 'Generating Image...' : 'Generate Image'}
             </button>
           </form>
         </div>
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        {isLoading && (
+        {isImageLoading && (
           <div className="flex justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyberpunk-500"></div>
           </div>
