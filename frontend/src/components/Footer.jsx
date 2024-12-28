@@ -5,7 +5,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-600 text-sm">
-            © {new Date().getFullYear()} Promptograph. All rights reserved.
+            Promptograph. Made by <a href="https://sirsean.me">sirsean</a>.
           </div>
           <div className="mt-4 md:mt-0">
             <nav className="flex space-x-4">

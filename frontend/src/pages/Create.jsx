@@ -63,7 +63,6 @@ const Create = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Create New Image</h1>
       <div className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <form onSubmit={handleGeneratePrompt}>
@@ -127,7 +126,7 @@ const Create = () => {
                   <img 
                     src={`/api/image/${imageHistory[0].id}.png`} 
                     alt={imageHistory[0].prompt} 
-                    className="w-full h-96 object-cover rounded-lg mb-2"
+                    className="w-full object-cover rounded-lg mb-2"
                   />
                 </a>
                 <p className="text-sm text-gray-600">{imageHistory[0].prompt}</p>
@@ -145,7 +144,7 @@ const Create = () => {
                   <img 
                     src={`/api/image/${image.id}.png`} 
                     alt={image.prompt} 
-                    className="w-full h-48 object-cover rounded-lg mb-2"
+                    className="w-full h-128 object-cover rounded-lg mb-2"
                   />
                 </a>
                 <p className="text-sm text-gray-600 line-clamp-2">{image.prompt}</p>

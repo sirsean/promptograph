@@ -40,10 +40,12 @@ app.post('/api/generate-image', async (req, res) => {
       return res.status(400).json({ error: 'Prompt and model are required' });
     }
 
-    console.log(model, prompt);
+    const id = crypto.randomUUID();
+    
+    console.log(id, model, prompt);
 
     const ai = new ImageCloudflareAI(model);
-    let imageData = await ai.generate(prompt);
+    let imageData = await ai.generate(`${prompt} (${id})`);
 
     // Handle Flux model's JSON response
     if (model === 'black-forest-labs/flux-1-schnell') {
@@ -52,7 +54,6 @@ app.post('/api/generate-image', async (req, res) => {
       imageData = Buffer.from(response.result.image, 'base64');
     }
 
-    const id = crypto.randomUUID();
     await uploadImage(id, imageData);
     
     res.json({ id });
