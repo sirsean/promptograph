@@ -21,7 +21,7 @@ app.post('/api/generate-prompt', async (req, res) => {
     }
 
     const prompt = await ai.generate({
-      system: ['You are an expert at writing detailed image generation prompts. Convert the user message into a detailed prompt that will generate a high-quality image.'],
+      system: ['You are an expert at writing detailed image generation prompts. Convert the user message into a detailed prompt that will generate a high-quality image. You will only respond with the prompt, and will not include any other text.'],
       user: [message]
     });
 
