@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { TextCloudflareAI } from "./ai/cloudflare.js";
+import { TextCloudflareAI, ImageCloudflareAI } from "./ai/cloudflare.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -29,6 +29,24 @@ app.post('/api/generate-prompt', async (req, res) => {
   } catch (error) {
     console.error('Error generating prompt:', error);
     res.status(500).json({ error: 'Failed to generate prompt' });
+  }
+});
+
+app.post('/api/generate-image', async (req, res) => {
+  try {
+    const { model, prompt } = req.body;
+    if (!prompt || !model) {
+      return res.status(400).json({ error: 'Prompt and model are required' });
+    }
+
+    const ai = new ImageCloudflareAI(model);
+    const imageStream = await ai.generate(prompt);
+    
+    res.setHeader('Content-Type', 'image/jpeg');
+    imageStream.pipe(res);
+  } catch (error) {
+    console.error('Error generating image:', error);
+    res.status(500).json({ error: 'Failed to generate image' });
   }
 });
 
