@@ -45,6 +45,7 @@ app.post('/api/generate-image', async (req, res) => {
 
     // Handle Flux model's JSON response
     if (model === 'black-forest-labs/flux-1-schnell') {
+      console.log(imageData);
       const response = await imageData.json();
       const base64Data = response.image.replace(/^data:image\/\w+;base64,/, '');
       imageData = Buffer.from(base64Data, 'base64');
