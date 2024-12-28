@@ -47,8 +47,7 @@ app.post('/api/generate-image', async (req, res) => {
     if (model === 'black-forest-labs/flux-1-schnell') {
       const text = await new Response(imageData).text();
       const response = JSON.parse(text);
-      const base64Data = response.image.replace(/^data:image\/\w+;base64,/, '');
-      imageData = Buffer.from(base64Data, 'base64');
+      imageData = Buffer.from(response.result.image, 'base64');
     }
 
     const id = crypto.randomUUID();
