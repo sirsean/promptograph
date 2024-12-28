@@ -43,13 +43,25 @@ app.post('/api/generate-image', async (req, res) => {
     const ai = new ImageCloudflareAI(model);
     const image = await ai.generate(prompt);
 
-    const id = 'demo';
+    const id = crypto.randomUUID();
     await uploadImage(id, image);
     
     res.json({ id });
   } catch (error) {
     console.error('Error generating image:', error);
     res.status(500).json({ error: 'Failed to generate image' });
+  }
+});
+
+app.get('/image/:id.png', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const imageObject = await getObject(`headlines/${id}/image.png`);
+    res.setHeader('Content-Type', 'image/png');
+    imageObject.Body.pipe(res);
+  } catch (error) {
+    console.error('Error retrieving image:', error);
+    res.status(404).json({ error: 'Image not found' });
   }
 });
 
