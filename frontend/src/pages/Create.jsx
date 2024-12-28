@@ -86,7 +86,7 @@ const Create = () => {
           
           <form onSubmit={handleGenerateImage}>
             <textarea 
-              className="w-full h-32 p-4 border rounded-lg mb-4"
+              className="w-full h-64 p-4 border rounded-lg mb-4"
               value={generatedPrompt}
               onChange={(e) => setGeneratedPrompt(e.target.value)}
               placeholder="Edit the generated prompt if needed..."
@@ -127,7 +127,7 @@ const Create = () => {
                 <img 
                   src={`/api/image/${image.id}.png`} 
                   alt={image.prompt} 
-                  className="w-full h-48 object-cover rounded-lg mb-2"
+                  className="w-full h-128 object-cover rounded-lg mb-2"
                 />
                 <p className="text-sm text-gray-600 line-clamp-2">{image.prompt}</p>
                 <p className="text-xs text-gray-400 mt-1">
