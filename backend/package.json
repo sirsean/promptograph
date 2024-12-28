@@ -2,6 +2,7 @@
   "name": "promptograph-backend",
   "version": "1.0.0",
   "description": "Promptograph backend API",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
