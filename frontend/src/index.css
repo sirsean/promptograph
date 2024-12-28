@@ -1,3 +1,16 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cyberpunk-bg text-cyberpunk-text;
+  }
+  button {
+    @apply bg-cyberpunk-button hover:bg-cyberpunk-buttonHover transition-colors duration-200;
+  }
+  textarea, select {
+    @apply bg-cyberpunk-accent border-cyberpunk-button text-cyberpunk-text;
+  }
+}

@@ -77,7 +77,7 @@ const Create = () => {
               type="submit"
               disabled={isLoading}
               className={`w-full px-4 py-2 rounded-lg text-white 
-                ${isLoading ? 'bg-blue-300' : 'bg-blue-500 hover:bg-blue-600'}`}
+                ${isLoading ? 'opacity-50' : ''}`}
             >
               {isLoading ? 'Generating...' : 'Generate Prompt'}
             </button>
