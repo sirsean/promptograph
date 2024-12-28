@@ -13,7 +13,8 @@ export default {
           text: '#FFE566',
           button: '#FF4D4D',
           buttonHover: '#FF7676',
-          accent: '#4F1F7A'
+          accent: '#4F1F7A',
+          border: '#4F1F7A'
         }
       }
     },

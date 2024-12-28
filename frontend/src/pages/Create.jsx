@@ -76,7 +76,7 @@ const Create = () => {
             <button 
               type="submit"
               disabled={isLoading}
-              className={`w-full px-4 py-2 rounded-lg text-white 
+              className={`w-full px-4 py-2 rounded-lg text-cyberpunk button-cyberpunk
                 ${isLoading ? 'opacity-50' : ''}`}
             >
               {isLoading ? 'Generating...' : 'Generate Prompt'}
@@ -102,8 +102,8 @@ const Create = () => {
             <button 
               type="submit"
               disabled={isLoading}
-              className={`w-full px-4 py-2 rounded-lg text-white 
-                ${isLoading ? 'bg-green-300' : 'bg-green-500 hover:bg-green-600'}`}
+              className={`w-full px-4 py-2 rounded-lg text-cyberpunk 
+                ${isLoading ? 'button-cyberpunk-300 opacity-50' : 'button-cyberpunk-500 hover:button-cyberpunk-600'}`}
             >
               {isLoading ? 'Generating Image...' : 'Generate Image'}
             </button>
@@ -114,7 +114,7 @@ const Create = () => {
 
         {isLoading && (
           <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyberpunk-500"></div>
           </div>
         )}
 
@@ -129,7 +129,7 @@ const Create = () => {
                     className="w-full object-cover rounded-lg mb-2"
                   />
                 </a>
-                <p className="text-sm text-gray-600">{imageHistory[0].prompt}</p>
+                <p className="text-sm text-cyberpunk-600">{imageHistory[0].prompt}</p>
                 <p className="text-xs text-gray-400 mt-1">
                   {new Date(imageHistory[0].timestamp).toLocaleString()}
                 </p>
@@ -147,7 +147,7 @@ const Create = () => {
                     className="w-full h-128 object-cover rounded-lg mb-2"
                   />
                 </a>
-                <p className="text-sm text-gray-600 line-clamp-2">{image.prompt}</p>
+                <p className="text-sm text-cyberpunk-600 line-clamp-2">{image.prompt}</p>
                 <p className="text-xs text-gray-400 mt-1">
                   {new Date(image.timestamp).toLocaleString()}
                 </p>
