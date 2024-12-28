@@ -87,9 +87,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
 
   // handle all other routes within vite-app
-  app.get('*', asyncHandler(async (req, res) => {
+  app.get('*', async (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
-  }));
+  });
 }
 
 app.listen(port, () => {
