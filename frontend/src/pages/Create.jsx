@@ -120,14 +120,32 @@ const Create = () => {
         )}
 
         <div className="space-y-6">
-          <div className="space-y-4">
-            {imageHistory.map((image, index) => (
-              <div key={image.id} className={`border rounded-lg p-4 ${index === 0 ? 'col-span-full' : ''}`}>
+          {imageHistory.length > 0 && (
+            <div className="mb-8">
+              <div className="border rounded-lg p-4">
+                <a href={`/api/image/${imageHistory[0].id}.png`} target="_blank" rel="noopener noreferrer">
+                  <img 
+                    src={`/api/image/${imageHistory[0].id}.png`} 
+                    alt={imageHistory[0].prompt} 
+                    className="w-full h-96 object-cover rounded-lg mb-2"
+                  />
+                </a>
+                <p className="text-sm text-gray-600">{imageHistory[0].prompt}</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  {new Date(imageHistory[0].timestamp).toLocaleString()}
+                </p>
+              </div>
+            </div>
+          )}
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {imageHistory.slice(1).map((image) => (
+              <div key={image.id} className="border rounded-lg p-4">
                 <a href={`/api/image/${image.id}.png`} target="_blank" rel="noopener noreferrer">
                   <img 
                     src={`/api/image/${image.id}.png`} 
                     alt={image.prompt} 
-                    className={`w-full object-cover rounded-lg mb-2 ${index === 0 ? 'h-96' : 'h-64'}`}
+                    className="w-full h-48 object-cover rounded-lg mb-2"
                   />
                 </a>
                 <p className="text-sm text-gray-600 line-clamp-2">{image.prompt}</p>
