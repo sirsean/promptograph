@@ -121,14 +121,16 @@ const Create = () => {
 
         <div className="space-y-6">
           <h2 className="text-2xl font-bold">Generated Images</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {imageHistory.map((image) => (
-              <div key={image.id} className="border rounded-lg p-4">
-                <img 
-                  src={`/api/image/${image.id}.png`} 
-                  alt={image.prompt} 
-                  className="w-full h-128 object-cover rounded-lg mb-2"
-                />
+          <div className="space-y-4">
+            {imageHistory.map((image, index) => (
+              <div key={image.id} className={`border rounded-lg p-4 ${index === 0 ? 'col-span-full' : ''}`}>
+                <a href={`/api/image/${image.id}.png`} target="_blank" rel="noopener noreferrer">
+                  <img 
+                    src={`/api/image/${image.id}.png`} 
+                    alt={image.prompt} 
+                    className={`w-full object-cover rounded-lg mb-2 ${index === 0 ? 'h-96' : 'h-64'}`}
+                  />
+                </a>
                 <p className="text-sm text-gray-600 line-clamp-2">{image.prompt}</p>
                 <p className="text-xs text-gray-400 mt-1">
                   {new Date(image.timestamp).toLocaleString()}
