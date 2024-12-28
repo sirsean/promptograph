@@ -9,7 +9,7 @@ const Footer = () => {
           </div>
           <div className="mt-4 md:mt-0">
             <nav className="flex space-x-4">
-              <a href="#" className="text-cyberpunk-600 hover:text-cyberpunk-900 text-sm">
+              <a href="https://github.com/sirsean/promptograph" className="text-cyberpunk-600 hover:text-cyberpunk-900 text-sm">
                 Github
               </a>
             </nav>
