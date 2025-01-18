@@ -19,7 +19,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.post('/api/generate-prompt', async (req, res) => {
-  const ai = new TextCloudflareAI('meta/llama-3.2-3b-instruct');
+  const ai = new TextCloudflareAI('meta/llama-3.3-70b-instruct-fp8-fast');
   try {
     const { message } = req.body;
     if (!message) {
@@ -27,7 +27,9 @@ app.post('/api/generate-prompt', async (req, res) => {
     }
 
     const prompt = await ai.generate({
-      system: ['You are an expert at writing detailed image generation prompts. Convert the user message into a detailed prompt that will generate a high-quality image. You will only respond with the prompt, and will not include any other text. The prompt should not be wrapped in quotation marks, just the raw prompt text.'],
+      system: [
+        'You are an expert at writing detailed image generation prompts. Convert the user message into a detailed prompt that will generate a high-quality image. You will only respond with the prompt, and will not include any other text. The prompt should not be wrapped in quotation marks, just the raw prompt text. Your preferred art style is cyberpunk line drawings. You produce 2D illustrations.',
+      ],
       user: [message]
     });
 
