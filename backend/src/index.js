@@ -18,18 +18,30 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+const STYLES = {
+  'cyberpunk': 'Your preferred art style is cyberpunk line drawings. You produce 2D illustrations.',
+  'icon': 'Your preferred art style is iconography. You produce flat 2D images that can be used as an icon.',
+  'pixel': 'Your preferred art style is pixel art. You produce 2D pixel art.',
+  'anime': 'Your preferred art style is anime. You produce 2D anime art.',
+};
+
 app.post('/api/generate-prompt', async (req, res) => {
   const ai = new TextCloudflareAI('meta/llama-3.3-70b-instruct-fp8-fast');
   try {
-    const { message } = req.body;
+    const { message, style } = req.body;
     if (!message) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
+    const promptStyle = STYLES[style] || '';
+
+    const systemPrompt = `You are an expert at writing detailed image generation prompts. Convert the user message into a detailed prompt that will generate a high-quality image. You will only respond with the prompt, and will not include any other text. The prompt should not be wrapped in quotation marks, just the raw prompt text. ${promptStyle}`;
+
+    console.log(systemPrompt);
+    console.log(message);
+
     const prompt = await ai.generate({
-      system: [
-        'You are an expert at writing detailed image generation prompts. Convert the user message into a detailed prompt that will generate a high-quality image. You will only respond with the prompt, and will not include any other text. The prompt should not be wrapped in quotation marks, just the raw prompt text. Your preferred art style is cyberpunk line drawings. You produce 2D illustrations.',
-      ],
+      system: [systemPrompt],
       user: [message]
     });
 
