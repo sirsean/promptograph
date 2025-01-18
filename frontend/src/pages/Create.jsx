@@ -20,7 +20,10 @@ const Create = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userMessage }),
+        body: JSON.stringify({ 
+          message: userMessage,
+          style: e.target.style.value
+        }),
       });
 
       if (!response.ok) {
@@ -74,6 +77,17 @@ const Create = () => {
               onChange={(e) => setUserMessage(e.target.value)}
               required
             />
+            <select 
+              name="style"
+              className="w-full p-2 border rounded-lg mb-4"
+              defaultValue=""
+            >
+              <option value="">Select style (optional)</option>
+              <option value="cyberpunk">Cyberpunk</option>
+              <option value="icon">Icon</option>
+              <option value="pixel">Pixel Art</option>
+              <option value="anime">Anime</option>
+            </select>
             <button 
               type="submit"
               disabled={isPromptLoading}
