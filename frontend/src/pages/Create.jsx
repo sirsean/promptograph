@@ -95,10 +95,10 @@ const Create = () => {
             <select 
               name="model"
               className="w-full p-2 border rounded-lg mb-4"
-              defaultValue="bytedance/stable-diffusion-xl-lightning"
+              defaultValue="black-forest-labs/flux-1-schnell"
             >
-              <option value="bytedance/stable-diffusion-xl-lightning">Stable Diffusion XL Lightning</option>
               <option value="black-forest-labs/flux-1-schnell">Flux-1 Schnell</option>
+              <option value="bytedance/stable-diffusion-xl-lightning">Stable Diffusion XL Lightning</option>
             </select>
             <button 
               type="submit"
