@@ -41,12 +41,12 @@ const STYLES = {
 **Temporal Fusion:**
 - Blend ancient and futuristic elements seamlessly
 - Transform traditional forms into modern/technological counterparts
-- Include symbols or text that morphs between historical and digital
 - Create bridges between past and future through visual metaphor
 
 **Composition Rules:**
 - Focus on architectural, natural, or abstract elements only
 - No anthropomorphic characters or figures
+- No symbols or text
 - Use single brushstrokes to suggest larger forms (mountains, horizons, structures)
 - Employ golden hour or dramatic lighting for emotional impact
 - Include floating, dissolving, or transforming elements
