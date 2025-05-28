@@ -87,6 +87,7 @@ const Create = () => {
               <option value="icon">Icon</option>
               <option value="pixel">Pixel Art</option>
               <option value="anime">Anime</option>
+              <option value="calligraphy">Calligraphy</option>
             </select>
             <button 
               type="submit"
